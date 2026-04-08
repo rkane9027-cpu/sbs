@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Class' Boutique - Mode & Beauté</title>
+    <!-- Font Awesome 6 (gratuit) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts : Poppins pour un look moderne -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animations de fond et particules flottantes */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 30%, #1a1a2e, #0a0a0a);
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: floatShape 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            100% { transform: translate(30px, -50px) scale(1.2); opacity: 0.7; }
+        }
+
+        /* Header avec effet glassmorphisme et animation */
+        header {
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,215,0,0.3);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 0px rgba(255,215,0,0);}
+            50% { text-shadow: 0 0 15px rgba(255,215,0,0.6);}
+            100% { text-shadow: 0 0 0px rgba(255,215,0,0);}
+        }
+
+        .logo p {
+            font-size: 0.7rem;
+            color: #FFD700;
+        }
+
+        .nav-links a {
+            color: white;
+            margin-left: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #FFD700;
+            transform: translateY(-3px);
+            display: inline-block;
+        }
+
+        /* Bannière animée */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            padding: 2rem;
+            animation: fadeInUp 1s;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #FFD700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            animation: bounceSoft 2s infinite;
+        }
+
+        @keyframes bounceSoft {
+            0%,100%{ transform: translateY(0);}
+            50%{ transform: translateY(-8px);}
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #25D366;
+        }
+
+        /* Galerie produits avec animations au scroll et hover */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 60px 0 30px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 8px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .product-card {
+            background: rgba(20,20,30,0.8);
+            backdrop-filter: blur(4px);
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            animation: cardFade 0.6s ease backwards;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+            border-color: #FFD700;
+        }
+
+        @keyframes cardFade {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .product-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin: 10px 0;
+        }
+
+        .price small {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: #ccc;
+        }
+
+        .btn-order {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border: none;
+            color: #000;
+            font-weight: bold;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-order:hover {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            transform: scale(0.98);
+            box-shadow: 0 0 15px gold;
+        }
+
+        /* Bande promotionnelle animée */
+        .promo-bar {
+            background: #FFD700;
+            color: #000;
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            margin: 30px 0;
+        }
+
+        .promo-text {
+            display: inline-block;
+            animation: scrollText 12s linear infinite;
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Section contact + WhatsApp */
+        .contact-section {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(0,0,0,0.6);
+            margin-top: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .whatsapp-number {
+            font-size: 1.8rem;
+            background: #25D366;
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 50px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #000000aa;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9rem;
+            border-top: 1px solid gold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 2rem; }
+            .nav-links a { margin-left: 15px; font-size: 0.9rem; }
+            .gallery { gap: 20px; }
+            .product-img { height: 220px; }
+            .whatsapp-number { font-size: 1.2rem; }
+        }
+
+        /* Animation de roue / rotation sur certains éléments */
+        .rotate-icon {
+            display: inline-block;
+            animation: spinSlow 8s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* mini effet glitter */
+        .glitter {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="bg-animation"></div>
+<div class="floating-shapes">
+    <div class="shape" style="width: 300px; height: 300px; top: 10%; left: -100px;"></div>
+    <div class="shape" style="width: 500px; height: 500px; bottom: 0; right: -150px; background: rgba(255,215,0,0.05);"></div>
+    <div class="shape" style="width: 200px; height: 200px; top: 60%; left: 70%;"></div>
+</div>
+
+<header>
+    <div class="logo">
+        <h1>CLASS' BOUTIQUE</h1>
+        <p><i class="fas fa-gem rotate-icon"></i> Style & Élégance <i class="fas fa-sparkle"></i></p>
+    </div>
+    <div class="nav-links">
+        <a href="#home">Accueil</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#promo">Promos</a>
+        <a href="#contact">Contact</a>
+    </div>
+</header>
+
+<section id="home" class="hero">
+    <h2>🔥 Nouvelle Collection 🔥</h2>
+    <p>Des looks uniques, des prix imbattables en FCFA. Découvrez nos articles tendance et bénéficiez de promotions exceptionnelles !</p>
+    <a href="https://wa.me/2250701448214?text=Bonjour%20Class'%20Boutique%20!%20Je%20souhaite%20passer%20commande%20" class="btn-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp fa-lg"></i> Commander via WhatsApp
+    </a>
+</section>
+
+<!-- Bande promo défilante animée -->
+<div class="promo-bar" id="promo">
+    <div class="promo-text">
+        🎉 PROMO EXCEPTIONNELLE 🎉   LOT 1 À 5000F CFA  |  LOT 2 À 9000F CFA  |  LIVRAISON RAPIDE  |  OFFRE VALABLE DU 17 AU 21 SEPT 2024  |  NE MANQUEZ PAS !
+    </div>
+</div>
+
+<h2 class="section-title" id="gallery">✨ Nos Articles Tendance ✨</h2>
+<div class="gallery" id="productGallery">
+    <!-- Les produits seront injectés dynamiquement avec JS pour faciliter l'ajout/modification -->
+</div>
+
+<!-- Section plus de ventes en FCFA avec animation -->
+<div class="contact-section" id="contact">
+    <i class="fas fa-shopping-cart fa-3x" style="color: #FFD700; margin-bottom: 15px; display: inline-block; animation: bounceSoft 1.5s infinite;"></i>
+    <h3>Commandez en toute simplicité</h3>
+    <p>Paiement à la livraison ou Mobile Money (FCFA) 📦</p>
+    <div class="whatsapp-number">
+        <i class="fab fa-whatsapp"></i> +225 07 01 44 82 14
+    </div>
+    <p>Cliquez sur le bouton ci-dessous pour commander directement ou poser vos questions 👇</p>
+    <a href="https://wa.me/2250701448214?text=Bonjour%20je%20souhaite%20commander%20un%20produit%20de%20Class'%20Boutique" class="btn-whatsapp" target="_blank" style="background: #25D366; margin-top: 15px;">
+        <i class="fab fa-whatsapp"></i> Commander maintenant
+    </a>
+</div>
+
+<footer class="footer">
+    <p>© 2025 Class' Boutique - Tous droits réservés | Mode, Santé & Beauté | Prix en FCFA</p>
+    <p><i class="fas fa-map-marker-alt"></i> Abidjan - Livraison partout | <i class="fas fa-phone-alt"></i> +225 0701448214</p>
+</footer>
+
+<script>
+    // Liste des produits (à remplacer par vos vraies images et descriptions)
+    // Vous pouvez ajouter autant d'articles que vous voulez. Chaque produit aura son propre bouton WhatsApp.
+    const products = [
+        {
+            id: 1,
+            name: "Ensemble Chic Femme",
+            price: "5000",
+            priceLabel: "5000 FCFA",
+            image: "https://placehold.co/600x800/1e1e2e/gold?text=Class'+Femme",
+            description: "Robe élégante pour soirée"
+        },
+        {
+            id: 2,
+            name: "Lot Mode Homme",
+            price: "9000",
+            priceLabel: "9000 FCFA",
+            image: "https://placehold.co/600x800/2a2a3a/gold?text=Homme+Tendance",
+            description: "Tee-shirt + Short tendance"
+        },
+        {
+            id: 3,
+            name: "Accessoire Luxe",
+            price: "3500",
+            priceLabel: "3500 FCFA",
+            image: "https://placehold.co/600x800/252535/gold?text=Accessoires",
+            description: "Sac à main / Montre"
+        },
+        {
+            id: 4,
+            name: "Pack Beauté",
+            price: "4200",
+            priceLabel: "4200 FCFA",
+            image: "https://placehold.co/600x800/2f2f3f/gold?text=Beauté",
+            description: "Soin visage + parfum"
+        },
+        {
+            id: 5,
+            name: "Jeans Premium",
+            price: "7500",
+            priceLabel: "7500 FCFA",
+            image: "https://placehold.co/600x800/1e2a2e/gold?text=Jean+Premium",
+            description: "Jean slim haute qualité"
+        },
+        {
+            id: 6,
+            name: "Lot 1 à 5000F",
+            price: "5000",
+            priceLabel: "5000 FCFA",
+            image: "https://placehold.co/600x800/3a2a2a/gold?text=Lot+5000F",
+            description: "Offre spéciale 1 à 5000F"
+        },
+        {
+            id: 7,
+            name: "Lot 2 à 9000F",
+            price: "9000",
+            priceLabel: "9000 FCFA",
+            image: "https://placehold.co/600x800/2a3a2a/gold?text=Lot+9000F",
+            description: "Super lot économique"
+        },
+        {
+            id: 8,
+            name: "Robe Cérémonie",
+            price: "12000",
+            priceLabel: "12000 FCFA",
+            image: "https://placehold.co/600x800/3a1e2e/gold?text=Robe+Cérémonie",
+            description: "Tissu haut de gamme"
+        }
+    ];
+
+    const galleryContainer = document.getElementById('productGallery');
+
+    function renderProducts() {
+        galleryContainer.innerHTML = '';
+        products.forEach((product, index) => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            // Animation décalée par index
+            card.style.animationDelay = `${index * 0.05}s`;
+            card.innerHTML = `
+                <img class="product-img" src="${product.image}" alt="${product.name}" loading="lazy">
+                <div class="product-info">
+                    <div class="product-title">${product.name}</div>
+                    <div class="price">${product.priceLabel} <small>FCFA</small></div>
+                    <p style="font-size:0.8rem; color:#aaa;">${product.description}</p>
+                    <button class="btn-order" data-prod='${JSON.stringify(product)}'>
+                        <i class="fab fa-whatsapp"></i> Commander ${product.priceLabel}
+                    </button>
+                </div>
+            `;
+            galleryContainer.appendChild(card);
+        });
+
+        // Ajouter les événements sur chaque bouton "Commander"
+        document.querySelectorAll('.btn-order').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const prodData = JSON.parse(btn.getAttribute('data-prod'));
+                const message = `Bonjour Class' Boutique, je souhaite commander le produit suivant : ${prodData.name} au prix de ${prodData.priceLabel} FCFA. Merci de me donner plus d'informations.`;
+                const whatsappUrl = `https://wa.me/2250701448214?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+    }
+
+    renderProducts();
+
+    // Animation supplémentaire : effet de scintillement sur les prix (optionnel)
+    // Ajout d'un effet de shake très léger au survol des cartes via CSS déjà présent
+
+    // Pour rendre la galerie encore plus dynamique, on peut ajouter un observateur d'intersection
+    // afin que les cartes apparaissent au scroll, mais déjà avec animation native.
+    // On va aussi créer quelques particules dynamiques supplémentaires
+    function createSparkles() {
+        const container = document.querySelector('.floating-shapes');
+        for(let i=0; i<20; i++) {
+            let spark = document.createElement('div');
+            spark.style.position = 'absolute';
+            spark.style.width = '4px';
+            spark.style.height = '4px';
+            spark.style.background = 'gold';
+            spark.style.borderRadius = '50%';
+            spark.style.opacity = Math.random() * 0.6;
+            spark.style.left = Math.random() * 100 + '%';
+            spark.style.top = Math.random() * 100 + '%';
+            spark.style.animation = `floatShape ${3 + Math.random() * 5}s infinite alternate`;
+            container.appendChild(spark);
+        }
+    }
+    createSparkles();
+
+    // Mise à jour dynamique du texte promo (déjà fait)
+    // Ajout d'une horloge ou d'un compteur promo ? 
+    // On peut ajouter un effet de rotation sur les icônes
+    const rotateIcons = document.querySelectorAll('.rotate-icon');
+    rotateIcons.forEach(icon => {
+        icon.style.animation = 'spinSlow 10s linear infinite';
+    });
+</script>
+
+<!-- Note : Remplacer les images placeholder par vos vraies photos (upload ou lien) -->
+<!-- Le site est entièrement fonctionnel avec animations fluides, commande whatsapp et prix en FCFA -->
+</body>
+</html>
